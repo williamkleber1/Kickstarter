@@ -3,12 +3,12 @@ package principal;
 import java.util.ArrayList;
 
 public class Person {
-	
+
 	private String name;
 	private String email;
 	private String Senha;
 	public ArrayList<Project> projects = new ArrayList<Project>();
-	
+
 	public Person(String name, String email, String senha) {
 		super();
 		this.name = name;
@@ -39,18 +39,22 @@ public class Person {
 	public void setSenha(String senha) {
 		Senha = senha;
 	}
-	
+
 	public void insertProject( Project proj) {
 		this.projects.add(proj);
-		
+
 	}
-	
+
 	public void remove_project(Project proj) {
 		for(int i = 0; i < this.projects.size(); i++)
 		{
-			
+			if(this.projects.get(i).getDescription().equals(proj.getDescription())  )
+			{
+				this.projects.remove(proj);
+				break;
+			}
 		}
-		
+
 	}
 
 
