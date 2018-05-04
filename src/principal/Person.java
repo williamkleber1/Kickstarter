@@ -40,8 +40,14 @@ public class Person {
 		Senha = senha;
 	}
 
+	public String toString() {
+		return "name : " + this.getName() + "\nemail : " + this.getEmail() + "\nnumero de projetos : " + this.projects.size() + "\n";
+
+	}
+
 	public void insertProject( Project proj) {
 		this.projects.add(proj);
+		proj.creator = this;
 
 	}
 

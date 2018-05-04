@@ -2,17 +2,23 @@ package principal;
 
 public class Project {
 
+	private String name;
 	private int value_needed;
 	private int current_value;
 	private String description;
 	public  Person creator;
 
-	public Project(int value_needed, String description, Person creator) {
+	public Project(String name, int value_needed, String description, Person creator) {
 		super();
+		this.name = name;
 		this.value_needed = value_needed;
 		this.current_value = 0;
 		this.description = description;
 		this.creator = creator;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public int getValue_needed() {
@@ -43,5 +49,10 @@ public class Project {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String toString() {
+		return "nome do projeto: "+this.getName()+"\n descricao: "+this.getDescription()+"\nvalor necessario: "+this.getValue_needed()+ "\nvalor obtido :"+getCurrent_value() + "\n";
+	}
+
 
 }
