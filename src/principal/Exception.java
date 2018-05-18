@@ -3,12 +3,12 @@ package principal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public  class Exception {
+public abstract  class Exception {
 
 	public static Scanner input = new Scanner(System.in);
 
 
-	public static  int input_int() {
+	public static  int inputInt() {
 		int a = 0;
 		try{
 			 a = input.nextInt();
@@ -16,9 +16,25 @@ public  class Exception {
 		}
 		catch(InputMismatchException e){
 			a = -1;
-			System.out.println(a);
+			input.reset();
+			input.next();
 		}
-			return a;
+		return a;
+	}
+	
+	public static double doubleInput() {
+		double a = 0;
+		try{
+			 a = input.nextDouble();
+
+		}
+		catch(InputMismatchException e){
+			a = -1;
+			input.reset();
+			input.next();
+		}
+		return a;
+		
 	}
 
 }

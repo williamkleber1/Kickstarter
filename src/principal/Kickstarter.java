@@ -4,11 +4,13 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Kickstarter extends Exception
 {
-	//the arraylist contains the all users
-	public static ArrayList<Person> users = new ArrayList<Person>();
+	static //the arraylist contains the all users
+	Map<String,Person> users = new HashMap<String,Person>();
 	public static Person pessoa1 = new Person("usuario padrao", "usuario@mail.com", "12345678");
 	
 	//the arraylist contains the movies category
@@ -80,13 +82,18 @@ public abstract class Kickstarter extends Exception
 		
 		System.out.println("\ndigite seu email");
 		String email = input.nextLine();
+		while( users.containsKey(email)){
+			System.out.println("\nemail existente\n, por favor digite outro email ");
+			email = input.nextLine();
+		}
 		
 		System.out.println("\ndigite sua senha");
 		String senha = input.nextLine();
 		
 		Person newPerson = new Person(name,email,senha);
 		
-		users.add(newPerson);
+
+		users.put(email,newPerson);
 		add_project(newPerson);
 		
 		
@@ -99,36 +106,26 @@ public abstract class Kickstarter extends Exception
 		System.out.println("digite seu email");
 		input.next();
 		String email = input.nextLine();
+		while( !users.containsKey(email)){
+			System.out.println("\nemail inexistente\n, por favor digite um email valido ");
+			email = input.nextLine();
+		}
 		
 		System.out.println("\ndigite sua senha");
 		String senha = input.nextLine();
-		
-		for(int i = 0; i < users.size(); i++){
-			
-			if(users.get(i).getEmail().equals(email))
-			{
-				System.out.println(users.get(i).toString());
-				if(users.get(i).getSenha().equals(senha))
-				{
-					add_project(users.get(i));
-				}
-					
-				else
-				{
-					System.out.println("senha incorreta");
-				}
-					
-				break;
-			}
+		while( !users.get(email).getSenha().equals(senha)) {
+			System.out.println("\nsenha incorreta, tente novamente");
+			email = input.nextLine();
 		}
 		
+		add_project(users.get(email));		
 	}
 
 	
 	//start a project
 	public static void startProject() {
 		System.out.println("1 - criar uma conta\n2 - ja tenho uma conta\n3 - retornar");
-		int option = input_int();
+		int option = inputInt();
 		switch (option) {
         case 1:
         	createAccount();
@@ -147,6 +144,8 @@ public abstract class Kickstarter extends Exception
 	
 	
 	public static void explore() {
+		System.out.println("diite ");
+		double x = doubleInput();
 		
 	}
 

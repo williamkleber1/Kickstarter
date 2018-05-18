@@ -6,9 +6,9 @@ public class Main extends Kickstarter{
 
 	public static void main(String[] args)
 	{
-		users.add(pessoa1);
+		users.put(pessoa1.getEmail(),pessoa1);
 
-		new Person("usuario padrao", "usuario@mail.com", "12345678").toString();
+		System.out.println(pessoa1.toString());
 		boolean test = true;
 		while(test)
 		{
@@ -16,7 +16,7 @@ public class Main extends Kickstarter{
 			System.out.println(getDateTime()+"\t total de usuarios: " + users.size()+ "\t total de projetos :" + getTotalProjects());
 			
 			System.out.println("\n1 - comece um projeto\n2 - explorar\n3 - sair");
-			int option = input_int();
+			int option = inputInt();
 			switch (option) {
             case 1:
                 startProject();

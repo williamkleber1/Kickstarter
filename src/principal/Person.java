@@ -1,5 +1,7 @@
 package principal;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ArrayList;
 
 public class Person {
@@ -62,7 +64,35 @@ public class Person {
 		}
 
 	}
+	
 
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (Senha == null) {
+			if (other.Senha != null)
+				return false;
+		} else if (!Senha.equals(other.Senha))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
 
 
 }
