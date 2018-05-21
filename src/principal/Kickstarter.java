@@ -49,7 +49,7 @@ public abstract class Kickstarter extends Exception
 		System.out.println("\ndigite a descricao do projeto");
 		String project_description = input.nextLine();
 		
-		System.out.println("\ndigite um numero inteiro correspondente ao valor que o projeto precisa");
+		System.out.println("\ndigite o valor que o projeto precisa");
 		double value_needed = inputDouble();
 		
 		Project new_project = new Project(project_name,value_needed,project_description,person);
@@ -123,6 +123,7 @@ public abstract class Kickstarter extends Exception
 	}
 
 	private static void donate(Project project) {
+		System.out.println("digite o valor a ser doado");
 		double value = inputDouble();
 		if(value <= 0)
 			System.out.println("valor invalido");
