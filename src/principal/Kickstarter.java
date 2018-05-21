@@ -144,10 +144,10 @@ public abstract class Kickstarter extends Exception
 		
 		int option = inputInt();
 		switch (option) {
-        case 1:
+        case 2:
         	System.out.println(project.creator.toString());
             break;
-        case 2:
+        case 1:
             donate(project);
             break;
 		}
