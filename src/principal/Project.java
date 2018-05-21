@@ -3,12 +3,12 @@ package principal;
 public class Project {
 
 	private String name;
-	private int value_needed;
-	private int current_value;
+	private double value_needed;
+	private double current_value;
 	private String description;
 	public  Person creator;
 
-	public Project(String name, int value_needed, String description, Person creator) {
+	public Project(String name, double value_needed, String description, Person creator) {
 		super();
 		this.name = name;
 		this.value_needed = value_needed;
@@ -21,20 +21,17 @@ public class Project {
 		return name;
 	}
 
-	public int getValue_needed() {
+	public double getValue_needed() {
 		return value_needed;
 	}
 
-	public void setValue_needed(int value_needed) {
-		this.value_needed = value_needed;
-	}
 
-	public void receive_donation(int donation)
+	public void receive_donation(double value)
 	{
-		this.current_value += donation;
+		this.current_value += value;
 	}
 
-	public int getCurrent_value() {
+	public double getCurrent_value() {
 		return current_value;
 	}
 

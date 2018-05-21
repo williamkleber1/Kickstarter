@@ -1,5 +1,6 @@
 package principal;
 
+import java.nio.channels.ShutdownChannelGroupException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,11 +29,11 @@ public abstract class Kickstarter extends Exception
 	//the arraylist contains the food category
 	public static ArrayList<Project> food = new ArrayList<Project>();
 	
-	//returns atual date
-	public static String getDateTime() { 
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); 
-		Date date = new Date(0); 
-		return dateFormat.format(date); 
+	//returns actual date
+	public static String getDateTime() {
+		Date data = new Date(System.currentTimeMillis());  
+		SimpleDateFormat formatarDate = new SimpleDateFormat("yyyy-MM-dd"); 
+		return formatarDate.format(data);
 	}
 	
 	//returns total projects
@@ -49,7 +50,7 @@ public abstract class Kickstarter extends Exception
 		String project_description = input.nextLine();
 		
 		System.out.println("\ndigite um numero inteiro correspondente ao valor que o projeto precisa");
-		int value_needed = input.nextInt();
+		double value_needed = inputDouble();
 		
 		Project new_project = new Project(project_name,value_needed,project_description,person);
 		person.insertProject(new_project);
@@ -121,7 +122,41 @@ public abstract class Kickstarter extends Exception
 		add_project(users.get(email));		
 	}
 
+	private static void donate(Project project) {
+		double value = inputDouble();
+		if(value <= 0)
+			System.out.println("valor invalido");
+		
+		else {
+			project.receive_donation(value);
+			System.out.println("obrigado!!!!!!!");
+		}
+	}
+
 	
+	private static void showProject(Project project) {
+		System.out.println("NOME: "+project.getName());
+		System.out.println("CRIADOR: "+project.creator.getName());
+		System.out.println("VALOR NECESSARIO: "+project.getValue_needed());
+		System.out.println("VALOR OBTIDO: "+project.getCurrent_value());
+		System.out.println("1 ======> doar");
+		System.out.println("2 ======> ver perfil do criador");
+		
+		int option = inputInt();
+		switch (option) {
+        case 1:
+        	System.out.println(project.creator.toString());
+            break;
+        case 2:
+            donate(project);
+            break;
+		}
+		
+		
+	}
+
+	
+
 	//start a project
 	public static void startProject() {
 		System.out.println("1 - criar uma conta\n2 - ja tenho uma conta\n3 - retornar");
@@ -142,10 +177,115 @@ public abstract class Kickstarter extends Exception
 		
 	}
 	
+	public static void showMovies() {
+		if( movies.size()==0)
+			return;
+		
+		for(int i = 0; i < movies.size(); i++ )
+			System.out.println(i + "->"+movies.get(i).toString());
+		
+		int option = inputInt();
+		if(option >= movies.size() ||option < 0)
+			System.out.println("projeto invalido");
+		else
+			showProject(movies.get(option));
+		
+
+	}
 	
+	public static  void showDesignTech() {
+		if( designTech.size()==0)
+			return;
+		
+		for(int i = 0; i < designTech.size(); i++ )
+			System.out.println(i + "->"+designTech.get(i).toString());
+		
+		int option = inputInt();
+		if(option >= designTech.size() ||option < 0)
+			System.out.println("projeto invalido");
+		else
+			showProject(designTech.get(option));
+		
+	}
+	
+	public static void showgames() {
+		if( games.size()==0)
+			return;
+		
+		for(int i = 0; i < games.size(); i++ )
+			System.out.println(i + "->"+games.get(i).toString());
+		
+		int option = inputInt();
+		if(option >= games.size() ||option < 0)
+			System.out.println("projeto invalido");
+		else
+			showProject(games.get(option));
+		
+	}
+	
+	public static void showMusic() {
+		if(  music.size()==0)
+			return;
+		
+		for(int i = 0; i < music.size(); i++ )
+			System.out.println(i + "->"+music.get(i).toString());
+		
+		int option = inputInt();
+		if(option >= music.size() ||option < 0)
+			System.out.println("projeto invalido");
+		else
+			showProject(music.get(option));
+	}
+	
+	public static void showFood() {
+		if(  food.size()==0)
+			return;
+		
+		for(int i = 0; i < food.size(); i++ )
+			System.out.println(i + "->"+food.get(i).toString());
+		
+		int option = inputInt();
+		if(option >= food.size() ||option < 0)
+			System.out.println("projeto invalido");
+		else
+			showProject(food.get(option));
+		
+	}
+	
+
 	public static void explore() {
-		System.out.println("diite ");
-		double x = doubleInput();
+		System.out.println("PROJETOS DISPONIVEIS");
+		
+		System.out.println("1 PARA ACESSAR :"+movies.size()+":PROJETOS SOBRE FILMES");
+		System.out.println("2 PARA ACESSAR :"+designTech.size()+":PROJETOS SOBRE DESIgN E TECNOLOgIA");
+		System.out.println("3 PARA ACESSAR :"+games.size()+":PROJETOS SOBRE gAMES");
+		System.out.println("4 PARA ACESSAR :"+music.size()+":PROJETOS SOBRE MUSICA");
+		System.out.println("5 PARA ACESSAR :"+food.size()+":PROJETOS SOBRE comida");
+		
+		System.out.println("digite uma opcao");
+		int option = inputInt();
+		switch (option) {
+        case 1:
+           showMovies();
+            break;
+        case 2:
+        	showDesignTech();
+            break;
+        case 3:
+        	showgames();
+        	break;
+        case 4:
+        	showMusic();
+        	break;
+        case 5:
+        	showFood();
+        	break;
+        default:
+             System.out.println("valor invalido!");
+             break;
+		}
+		
+		
 		
 	}
 
@@ -157,12 +297,8 @@ public abstract class Kickstarter extends Exception
 	public void show_profile(Person user) {
 
 		System.out.println(user.toString());
-		if(user.projects.size() > 0)
-		{
-			for(int i = 0; i < user.projects.size(); i++ )
-			{
+			for(int i = 0; i < user.projects.size(); i++ ){
 				System.out.println(user.projects.get(i).toString());
-			}
 		}
 
 	}

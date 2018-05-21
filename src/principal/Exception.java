@@ -22,7 +22,7 @@ public abstract  class Exception {
 		return a;
 	}
 	
-	public static double doubleInput() {
+	public static double inputDouble() {
 		double a = 0;
 		try{
 			 a = input.nextDouble();
